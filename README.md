@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# English LMS - Learning Management System
 
-## Getting Started
+A comprehensive Learning Management System for LPK Atlantis Ocean Club, built with **Next.js 15**, **Supabase**, and **Tailwind CSS**.
 
-First, run the development server:
+## 🎯 Features
+
+### User Roles
+- **Admin** — Full access: manage users, courses, enrollments
+- **Teacher** — Manage courses, modules, assignments, grade submissions
+- **Student** — View enrolled courses, download materials, submit assignments
+
+### Core Features
+- 📧 Email & Password Authentication (Supabase Auth)
+- 📚 Course & Module Management
+- 📝 Assignment Creation & Submission
+- ⭐ Grading System with Feedback
+- 🔒 Row Level Security (RLS) per role
+- ☁️ File Storage for materials & submissions
+- 📱 Mobile-first responsive design
+- 🔌 Webhook-ready for n8n/WhatsApp automation
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Frontend | Next.js 15 (App Router), TypeScript, Tailwind CSS |
+| Backend | Supabase (PostgreSQL, Auth, Storage) |
+| Styling | Custom CSS with design tokens (Blue/White/Gray) |
+| Icons | Lucide React |
+
+## 🚀 Getting Started
+
+### 1. Setup Supabase
+
+1. Create a new project at [supabase.com](https://supabase.com)
+2. Go to **SQL Editor** and run the schema from `supabase-schema.sql`
+3. Create two storage buckets:
+   - `materials` (for teacher PDF/audio uploads)
+   - `student_files` (for student assignment submissions)
+4. Copy your project URL and anon key
+
+### 2. Clone & Install
+
+```bash
+git clone https://github.com/YOUR_USERNAME/english-lms.git
+cd english-lms
+npm install
+```
+
+### 3. Configure Environment
+
+```bash
+cp .env.local.example .env.local
+# Edit .env.local with your Supabase credentials
+```
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
+
+### 4. Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   ├── login/              # Login page
+│   ├── dashboard/
+│   │   ├── admin/          # Admin pages (users, courses)
+│   │   ├── teacher/         # Teacher pages (courses, assignments, grading)
+│   │   └── student/         # Student pages (courses, assignments, submission)
+│   └── layout.tsx           # Root layout with AuthProvider
+├── components/
+│   ├── ui/                 # Reusable UI components
+│   ├── auth-provider.tsx   # Supabase auth context
+│   └── dashboard/
+│       └── sidebar.tsx      # Role-based navigation
+└── lib/
+    ├── supabase.ts          # Supabase client
+    ├── types.ts             # TypeScript types
+    └── utils.ts             # Utility functions
+```
 
-## Learn More
+## 🎨 Design System
 
-To learn more about Next.js, take a look at the following resources:
+| Token | Value | Usage |
+|-------|-------|-------|
+| Primary | `#2563eb` | Buttons, links, active states |
+| Primary Hover | `#1d4ed8` | Button hover |
+| Background | `#ffffff` | Page background |
+| Text | `#0f172a` | Headings |
+| Muted | `#f1f5f9` | Cards, secondary areas |
+| Border | `#e2e8f0` | Card borders, dividers |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔐 Row Level Security
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Table | Student | Teacher | Admin |
+|-------|---------|---------|-------|
+| users | Read own | Read all | Full |
+| courses | Read | Read | Full |
+| modules | Read | Write | Write |
+| assignments | Read | Write | Write |
+| submissions | Read/Write own | Read/Write all | Read/Write all |
+| course_enrollments | Read | Read | Full |
 
-## Deploy on Vercel
+## 🚢 Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Vercel (Recommended)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Push code to GitHub
+2. Connect repo to [Vercel](https://vercel.com)
+3. Add environment variables:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+4. Deploy!
+
+## 📄 License
+
+MIT
