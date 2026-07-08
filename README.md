@@ -28,44 +28,42 @@ A comprehensive Learning Management System for LPK Atlantis Ocean Club, built wi
 | Styling | Custom CSS with design tokens (Blue/White/Gray) |
 | Icons | Lucide React |
 
-## 🚀 Getting Started
+## 🚀 Quick Start
 
-### 1. Setup Supabase
+### 1. Setup Supabase Database
 
-1. Create a new project at [supabase.com](https://supabase.com)
-2. Go to **SQL Editor** and run the schema from `supabase-schema.sql`
-3. Create two storage buckets:
-   - `materials` (for teacher PDF/audio uploads)
-   - `student_files` (for student assignment submissions)
-4. Copy your project URL and anon key
+1. Go to [Supabase Dashboard](https://supabase.com/dashboard/project/yalcdyzzcdqehsyutckw/sql)
+2. Open **SQL Editor**
+3. Copy and paste the contents of `supabase-schema.sql`
+4. Click **Run**
 
-### 2. Clone & Install
+### 2. Create Storage Buckets
 
-```bash
-git clone https://github.com/YOUR_USERNAME/english-lms.git
-cd english-lms
-npm install
-```
+In Supabase Dashboard → **Storage** → **New Bucket**:
 
-### 3. Configure Environment
+| Bucket Name | Public | Purpose |
+|-------------|--------|---------|
+| `materials` | No | Teacher uploads (PDF, audio files) |
+| `student_files` | No | Student assignment submissions |
 
-```bash
-cp .env.local.example .env.local
-# Edit .env.local with your Supabase credentials
-```
+### 3. Deploy to Vercel
 
-```env
-NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-```
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/aocwonosari-pixel/english-lms)
 
-### 4. Run Development Server
+Add these **Environment Variables** in Vercel:
 
-```bash
-npm run dev
-```
+| Key | Value |
+|-----|-------|
+| `NEXT_PUBLIC_SUPABASE_URL` | `https://yalcdyzzcdqehsyutckw.supabase.co` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlhbGNkeXp6Y2RxZWhzeXV0Y2t3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MDQyMTgsImV4cCI6MjA5OTA4MDIxOH0.AGbgzeD1DNo6Os5squdQvHqhT_7Z_oO_Gl0b6YUgd2M` |
 
-Open [http://localhost:3000](http://localhost:3000)
+### 4. Create First Admin User
+
+Since there's no self-signup for MVP:
+
+1. Go to Supabase Dashboard → **Authentication** → **Users**
+2. Click **Add user** → fill in email, password, and metadata (full_name)
+3. In the **users** table, manually update the user's role to `'admin'`
 
 ## 📁 Project Structure
 
@@ -75,9 +73,9 @@ src/
 │   ├── login/              # Login page
 │   ├── dashboard/
 │   │   ├── admin/          # Admin pages (users, courses)
-│   │   ├── teacher/         # Teacher pages (courses, assignments, grading)
-│   │   └── student/         # Student pages (courses, assignments, submission)
-│   └── layout.tsx           # Root layout with AuthProvider
+│   │   ├── teacher/        # Teacher pages
+│   │   └── student/        # Student pages
+│   └── layout.tsx
 ├── components/
 │   ├── ui/                 # Reusable UI components
 │   ├── auth-provider.tsx   # Supabase auth context
@@ -85,7 +83,6 @@ src/
 │       └── sidebar.tsx      # Role-based navigation
 └── lib/
     ├── supabase.ts          # Supabase client
-    ├── types.ts             # TypeScript types
     └── utils.ts             # Utility functions
 ```
 
@@ -94,7 +91,6 @@ src/
 | Token | Value | Usage |
 |-------|-------|-------|
 | Primary | `#2563eb` | Buttons, links, active states |
-| Primary Hover | `#1d4ed8` | Button hover |
 | Background | `#ffffff` | Page background |
 | Text | `#0f172a` | Headings |
 | Muted | `#f1f5f9` | Cards, secondary areas |
@@ -108,19 +104,7 @@ src/
 | courses | Read | Read | Full |
 | modules | Read | Write | Write |
 | assignments | Read | Write | Write |
-| submissions | Read/Write own | Read/Write all | Read/Write all |
-| course_enrollments | Read | Read | Full |
-
-## 🚢 Deployment
-
-### Vercel (Recommended)
-
-1. Push code to GitHub
-2. Connect repo to [Vercel](https://vercel.com)
-3. Add environment variables:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-4. Deploy!
+| submissions | Read/Write own | Read/Write all | Full |
 
 ## 📄 License
 
