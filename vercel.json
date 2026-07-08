@@ -1,5 +1,5 @@
 {
   "framework": "nextjs",
-  "buildCommand": "node node_modules/.bin/next build",
-  "installCommand": "node node_modules/.bin/npm install --ignore-scripts --no-audit --no-fund"
+  "buildCommand": "yarn build",
+  "installCommand": "yarn install --frozen-lockfile"
 }
