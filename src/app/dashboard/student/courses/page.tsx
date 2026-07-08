@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/auth-provider";
 import { supabase } from "@/lib/supabase";
-import { BookOpen, ExternalLink, FileText, Audio } from "lucide-react";
+import { BookOpen, ExternalLink, FileText, AudioLines } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 
 export default function StudentCourses() {
@@ -127,7 +127,7 @@ export default function StudentCourses() {
                                 {mod.content_url.toLowerCase().endsWith(".pdf") ? (
                                   <FileText className="w-4 h-4" />
                                 ) : (
-                                  <Audio className="w-4 h-4" />
+                                  <AudioLines className="w-4 h-4" />
                                 )}
                               </a>
                             )}

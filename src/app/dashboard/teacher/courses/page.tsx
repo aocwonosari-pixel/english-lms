@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Table, TableRow, TableCell } from "@/components/ui/table";
-import { BookOpen, Plus, Trash2, FileText, Audio, Edit2 } from "lucide-react";
+import { BookOpen, Plus, Trash2, FileText, AudioLines } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 
 export default function TeacherCourses() {
@@ -144,7 +144,7 @@ export default function TeacherCourses() {
                         <p className="font-medium text-slate-900">{mod.title}</p>
                         {mod.content_url && (
                           <a href={mod.content_url} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-600 hover:underline flex items-center gap-1 mt-1">
-                            {mod.content_url.toLowerCase().endsWith(".pdf") ? <FileText className="w-3 h-3" /> : <Audio className="w-3 h-3" />}
+                            {mod.content_url.toLowerCase().endsWith(".pdf") ? <FileText className="w-3 h-3" /> : <AudioLines className="w-3 h-3" />}
                             View material
                           </a>
                         )}
